@@ -47,12 +47,12 @@ cd backend-assignment
 npm install
 
 3.Add a .env file in the root directory with the following variables:
-PORT=4000
-MONGO_URI=<your-mongo-uri>
-ACCESS_TOKEN_SECRET=<your-access-token-secret>
-REFRESH_TOKEN_SECRET=<your-refresh-token-secret>
-TOKEN_EXPIRY=15m
-REFRESH_TOKEN_EXPIRY=7d
+PORT=4000, 
+MONGO_URI=<your-mongo-uri>, 
+ACCESS_TOKEN_SECRET=<your-access-token-secret>, 
+REFRESH_TOKEN_SECRET=<your-refresh-token-secret>, 
+TOKEN_EXPIRY=15m, 
+REFRESH_TOKEN_EXPIRY=7d, 
 
 4.Build the project:
 npm run build
