@@ -9,8 +9,12 @@ export const verifyToken = (
   res: Response,
   next: NextFunction
 ) => {
+
+  // fetch auth token from request header
   const authHeader = req.headers.authorization;
 
+
+  // chech if the access token is passed correctly
   if (!authHeader) {
     res
       .status(401)
@@ -20,19 +24,20 @@ export const verifyToken = (
 
   const token = authHeader.split(" ")[1];
 
+  // get userId and user role from JWT token to verify role and use in future
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as {
       userId: number;
       role: string;
     };
 
-    // Ensure token contains the required claims
+    // Ensure token contains the required fields
     if (!decoded.userId || !decoded.role) {
       res.status(400).json({ error: "Invalid token payload." });
       return;
     }
 
-    // Attach user data to request, including companyId
+    // Attach user data to request 
     (req as any).user = {
       userId: decoded.userId,
       role: decoded.role,

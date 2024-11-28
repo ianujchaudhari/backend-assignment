@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 
-// Controller to update user roles
+// Controller to update user roles for any user
 export const updateUserRole = async (req: Request, res: Response) => {
   try {
     const { userId, newRole } = req.body;
 
-    // Validate inputs
+    //check for Validate inputs
     if (!userId || !newRole) {
       res.status(400).json({ error: "User ID and new role are required" });
       return;
     }
 
+    // check for allowed roles based on array
     const allowedRoles = ["user", "moderator", "admin"];
     if (!allowedRoles.includes(newRole.toLowerCase())) {
       res
@@ -20,7 +21,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
       return;
     }
 
-    // Find the user by ID
+    // Find the user by ID from Db
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ error: "User not found" });
@@ -45,14 +46,6 @@ export const updateUserRole = async (req: Request, res: Response) => {
 // Controller to get all registered users
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const userRole = (req as any).user.role; // Get the role of the requesting user
-
-    // Only allow admins to fetch all users
-    if (userRole !== "Admin") {
-      res.status(403).json({ error: "Access forbidden: Admins only" });
-      return;
-    }
-
     // Fetch all users from the database
     const users = await User.find({}, "-password -refreshToken"); // Exclude the password field for security
 
@@ -63,17 +56,19 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+// Controller to delete any registered users
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params; // Extract user ID from route parameters
+    // Extract user ID from route parameters
+    const { id } = req.params;
 
-    // Find and delete the user by ID
+    //  check if user exists
     const user = await User.findById(id);
     if (!user) {
       res.status(404).json({ error: "User not found" });
       return;
     }
-
+    // Find and delete the user by ID
     await User.findByIdAndDelete(id);
     res.status(200).json({ message: "User deleted successfully", user });
   } catch (error) {

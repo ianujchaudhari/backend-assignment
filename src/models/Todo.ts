@@ -1,3 +1,4 @@
+// todo schema for task management withollowing fields
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ITodo extends Document {

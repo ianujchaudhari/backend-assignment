@@ -1,3 +1,4 @@
+// user schema to manage user and their role also refresh token is saved in db for logout and refresh-token route
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {

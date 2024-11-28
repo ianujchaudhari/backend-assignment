@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
-// Define role hierarchy in lowercase
+// index of array defines level of priority from lowest to heighest
 const roleHierarchy = ["user", "moderator", "admin"];
 
-// Helper function to check if the user role meets the minimum required role
+// Helper function to check if the user role meets the minimum required role based on array index
 function hasAccess(userRole: string, minimumRole: string): boolean {
   const userIndex = roleHierarchy.indexOf(userRole.toLowerCase());
   const minRoleIndex = roleHierarchy.indexOf(minimumRole.toLowerCase());
