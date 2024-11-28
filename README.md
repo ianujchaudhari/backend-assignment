@@ -40,12 +40,13 @@ Installation Steps
 
 1.Clone the repository:
 git clone https://github.com/ianujchaudhari/backend-assignment.git
+
 cd backend-assignment
 
-2. install dependency:
+2.install dependency:
 npm install
 
-3. Add a .env file in the root directory with the following variables:
+3.Add a .env file in the root directory with the following variables:
 PORT=4000
 MONGO_URI=<your-mongo-uri>
 ACCESS_TOKEN_SECRET=<your-access-token-secret>
